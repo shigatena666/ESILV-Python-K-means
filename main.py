@@ -6,13 +6,10 @@ from Distance import *
 
 
 def run_all(k_clusters, file_name, first_var, second_var, distance_type: Distance, debug=False):
-    
+
     # create our data wrapper to read from the file.
     data_wrapper = Dw.DataWrapper(f'Datasets/{file_name}.csv')
     data = data_wrapper.load()
-
-    # check if amount of line is lesser than amount of cluster (in which case we would have empty clusters and that
-    # wouldn't make sense).
 
     # instantiate our kmeans class.
     kmeans = Km.KMeans(k_clusters, data, distance_type)
