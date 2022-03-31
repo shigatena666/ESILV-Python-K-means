@@ -124,7 +124,8 @@ class KMeans:
 
         # create data models to check for intra and interclass partitions.
         data_model_initial = Dm.DataModel(self.__data_model.get_data(), initial_clusters)
-        data_model_clustered = Dm.DataModel(self.__data_model.get_data(), last_encountered_clusters)
+        data_model_last_encountered = Dm.DataModel(self.__data_model.get_data(), last_encountered_clusters)
+        data_model_clustered = Dm.DataModel(self.__data_model.get_data(), reallocated_clusters)
 
         if debug:
 
@@ -137,4 +138,8 @@ class KMeans:
             print("Final clusters: ")
             print(format_clusters(data_model_clustered.get_clusters()))
 
-        return data_model_clustered.get_clusters()
+        # as we know the clusters haven't changed, return the one that has the lowest intraclass dispersion.
+        if data_model_clustered.get_intraclass_dispersion() <= data_model_last_encountered.get_intraclass_dispersion():
+            return data_model_clustered.get_clusters()
+
+        return data_model_last_encountered.get_clusters()

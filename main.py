@@ -9,7 +9,7 @@ def run_all(k_clusters, file_name, first_var, second_var, distance_type: Distanc
 
     # create our data wrapper to read from the file.
     data_wrapper = Dw.DataWrapper(f'Datasets/{file_name}.csv')
-    data = data_wrapper.load()
+    data = data_wrapper.load(first_var, second_var)
 
     # instantiate our kmeans class.
     kmeans = Km.KMeans(k_clusters, data, distance_type)
@@ -21,7 +21,7 @@ def run_all(k_clusters, file_name, first_var, second_var, distance_type: Distanc
     data_viewer = Dv.DataViewer(clusters)
 
     # show the result of the K-means output.
-    data_viewer.show(k_clusters, file_name, first_var, second_var)
+    data_viewer.show(k_clusters, file_name)
 
 
 if __name__ == "__main__":
@@ -44,4 +44,4 @@ if __name__ == "__main__":
         print("An error occured during the execution of the algorithm:\n" + str(e))
 
     # test purposes.
-    # run_all(4, "td_example", 1, 3, Distance.MANHATTAN, True)
+    # run_all(3, "irisV1", 0, 2, Distance.MANHATTAN, True)
